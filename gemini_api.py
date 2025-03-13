@@ -1,9 +1,17 @@
 import aiohttp
 import asyncio
 import json
+import os
+from dotenv import load_dotenv
 
-GEMINI_API_KEY = "AIzaSyBc-OC6fAEPiYwyxFLnokmh-xheYWtXzag"
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+# Load environment variables
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_URL = os.getenv("GEMINI_API_URL")
+
+if not GEMINI_API_KEY or not GEMINI_API_URL:
+    raise ValueError("Missing required environment variables. Please check your .env file.")
 
 async def appeler_gemini_api(texte: str) -> dict:
     """
